@@ -22,3 +22,19 @@ class PostsAndCommentsTestCase(TestCase):
 
         for c in p.comments.all():
             self.assertEqual(c.author.username,"tester")
+
+    def test_comment_content(self):
+        p = self.user.posts.last()
+        c = Comment.objects.create(post=p, author=self.user,
+                        code="#test.code()[1]", description="uncomment")
+        self.assertEqual(p.comments.last().code, '#test.code()[1]')
+
+    def test_diff_lines(self):
+        p = self.user.posts.last()
+        c = Comment.objects.create(post=p, author=self.user,
+                        code="#test.code()[1]", description="uncomment")
+
+
+        pdiff, cdiff = c.get_diff_lines()
+        self.assertEqual(pdiff, [('eq','#test.code()[]')])
+        self.assertEqual(cdiff, [('eq','#test.code()['),('mod','1'),('eq',']')])
