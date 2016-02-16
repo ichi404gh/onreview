@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 
 class Post(models.Model):
     active = models.BooleanField(default=True)
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(
+                        User,
+                        related_name="posts")
     code = models.TextField('код')
     description = models.TextField('описание')
     pub_date = models.DateTimeField('дата публикации', auto_now_add=True)
@@ -18,7 +20,12 @@ class Post(models.Model):
 class Comment(models.Model):
     active = models.BooleanField(default=True)
     author = models.ForeignKey(User)
-    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
+    post = models.ForeignKey(
+                        Post,
+                        default=None,
+                        on_delete=models.CASCADE,
+                        related_name="comments")
+
     pub_date = models.DateTimeField('дата публикации', auto_now_add=True)
     scored_by = models.ManyToManyField(
                                 User,
