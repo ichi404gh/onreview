@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^$', views.list),
     url(r'^post/(\d)+', views.post),
     url(r'^comment/(\d)+', views.comment),
+    url(r'^add/$', views.add_post),
 ]

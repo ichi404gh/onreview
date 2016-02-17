@@ -5,14 +5,19 @@
     <title>Post list</title>
   </head>
   <body>
+    <div class="">
+      {% if request.user.is_authenticated %}
+        <span>logged in as {{request.user.username}}</span>
+        <span><a href="/add/">+</a></span>
+        <hr>
+      {% endif %}
+    </div>
     {% for p in posts %}
       <div class="post">
         <p>
           <i><a href="/post/{{p.id}}">{{p.author.username}}</a></i>
         </p>
-        <p class="code">
-          {{p.code}}
-        </p>
+          <pre>{{p.code}}</pre>
       </div>
     {% endfor %}
   </body>

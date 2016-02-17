@@ -13,8 +13,8 @@
       <i>{{post.description}}</i>
     </p>
     <ul>
-      {% for c in post.comments.all %}
-        <li><a href="/comment/{{c.id}}">{{c.description}}</a></li>
+      {% for c in active_comments %}
+        <li><a href="/comment/{{c.id}}">-&gt;{{c.description}}</a></li>
       {% endfor %}
     </ul>
   </body>

@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import json
 
 class Post(models.Model):
     active = models.BooleanField(default=True)
@@ -17,6 +20,9 @@ class Post(models.Model):
     def score(self):
         return self.scored_by.count()
 
+    def __str__(self):
+        return "<{}>: {}".format(self.author.username, self.description[:20])
+
 class Comment(models.Model):
     active = models.BooleanField(default=True)
     author = models.ForeignKey(User)
@@ -31,16 +37,22 @@ class Comment(models.Model):
                                 User,
                                 related_name='+',
                                 blank=True)
-    code = models.TextField('код', default=None, null=True)
-    description = models.TextField('описание', default=None, null=True)
+    code = models.TextField('код', default="", blank=True)
+    description = models.TextField('описание', default="", blank=True)
+    comment_diffs_internal = models.TextField(default="", blank=True)
 
     def score(self):
         return self.scored_by.count()
+
+    def get_diff(self):
+        return json.loads(self.comment_diffs_internal)
+
     def get_diff_lines(self):
         import difflib
 
         postdiffs = list()
         commentdiffs = list()
+
         s = difflib.SequenceMatcher(lambda x: x.isspace(), self.post.code, self.code)
         for o in s.get_opcodes():
             if(o[0] in ('replace','delete')):
@@ -53,9 +65,6 @@ class Comment(models.Model):
 
             self.__normalize__(postdiffs)
             self.__normalize__(commentdiffs)
-
-
-
         return (postdiffs,commentdiffs)
 
     def __normalize__(self, array):
@@ -69,3 +78,12 @@ class Comment(models.Model):
                 array[i]=d
             else:
                 i+=1
+
+
+@receiver(post_save, sender = Comment)
+def parse_diffs(instance, **kwargs):
+    # sender.save()
+    comment = instance
+    Comment.objects.filter(pk=instance.pk).update(
+        comment_diffs_internal=json.dumps(comment.get_diff_lines())
+    )
