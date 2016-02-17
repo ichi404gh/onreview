@@ -6,24 +6,28 @@
 
   </head>
   <body>
-    <p class="code">
-      {% for c in comment.get_diff_lines.0 %}<!--
+    <p>
+      <pre class="code"><!--
+-->{% for c in comment.get_diff_lines.0 %}<!--
         -->{% if c.0 == 'mod' %}<!--
-          --><b>{{c.1|safe}}</b><!--
+        --><span style="background-color: red;">{{c.1|safe}}</span><!--
         -->{% else %}<!--
         -->{{c.1|safe}}<!--
         -->{% endif %}<!--
       -->{% endfor %}
+      </pre>
     </p>
 
-    <p class="code">
-      {% for c in comment.get_diff_lines.1 %}<!--
+    <p>
+      <pre class="code"><!--
+-->{% for c in comment.get_diff_lines.1 %}<!--
         -->{% if c.0 == 'mod' %}<!--
-          --><b>{{c.1|safe}}</b><!--
+        --><span style="background-color: green;">{{c.1|safe}}</span><!--
         -->{% else %}<!--
         -->{{c.1|safe}}<!--
         -->{% endif %}<!--
       -->{% endfor %}
+      </pre>
     </p>
   </body>
 </html>
