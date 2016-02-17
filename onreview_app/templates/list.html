@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Post list</title>
+  </head>
+  <body>
+    {% for p in posts %}
+      <div class="post">
+        <p>
+          <i><a href="/post/{{p.id}}">{{p.author.username}}</a></i>
+        </p>
+        <p class="code">
+          {{p.code}}
+        </p>
+      </div>
+    {% endfor %}
+  </body>
+</html>

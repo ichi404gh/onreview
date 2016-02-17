@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Comment</title>
+
+  </head>
+  <body>
+    <p class="code">
+      {% for c in comment.get_diff_lines.0 %}<!--
+        -->{% if c.0 == 'mod' %}<!--
+          --><b>{{c.1|safe}}</b><!--
+        -->{% else %}<!--
+        -->{{c.1|safe}}<!--
+        -->{% endif %}<!--
+      -->{% endfor %}
+    </p>
+
+    <p class="code">
+      {% for c in comment.get_diff_lines.1 %}<!--
+        -->{% if c.0 == 'mod' %}<!--
+          --><b>{{c.1|safe}}</b><!--
+        -->{% else %}<!--
+        -->{{c.1|safe}}<!--
+        -->{% endif %}<!--
+      -->{% endfor %}
+    </p>
+  </body>
+</html>

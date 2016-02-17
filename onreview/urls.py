@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from onreview_app import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.list),
+    url(r'^post/(\d)+', views.post),
+    url(r'^comment/(\d)+', views.comment),
 ]

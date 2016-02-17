@@ -17,6 +17,9 @@ class Post(models.Model):
     def score(self):
         return self.scored_by.count()
 
+    def code_html(self):
+        return self.code.replace('\n',"<br>").replace(' ',"&nbsp;")
+
 class Comment(models.Model):
     active = models.BooleanField(default=True)
     author = models.ForeignKey(User)
@@ -69,3 +72,5 @@ class Comment(models.Model):
                 array[i]=d
             else:
                 i+=1
+        for i in range(len(array)):
+            array[i] = (array[i][0],array[i][1].replace('\r\n',"<br>").replace(' ','&nbsp;'))

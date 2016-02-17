@@ -34,7 +34,6 @@ class PostsAndCommentsTestCase(TestCase):
         c = Comment.objects.create(post=p, author=self.user,
                         code="#test.code()[1]", description="uncomment")
 
-
         pdiff, cdiff = c.get_diff_lines()
         self.assertEqual(pdiff, [('eq','#test.code()[]')])
         self.assertEqual(cdiff, [('eq','#test.code()['),('mod','1'),('eq',']')])

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Post</title>
+  </head>
+  <body>
+    <p>
+      {{post.code_html|safe}}
+    </p>
+    <p>
+      <i>{{post.description}}</i>
+    </p>
+    <ul>
+      {% for c in post.comments.all %}
+        <li><a href="/comment/{{c.id}}">{{c.description}}</a></li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
