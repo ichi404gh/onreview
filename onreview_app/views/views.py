@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Post, Comment
+from onreview_app.models import Post, Comment
+
 from django.shortcuts import render, render_to_response
 import math
-
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from onreview.settings import LOGIN_URL, LOGOUT_URL
 
 def list(request):
     posts = Post.objects.all()
@@ -32,8 +35,8 @@ def comment(request, id_parameter):
     }
     return render(request, 'comment.html', context)
 
+@login_required
 def add_post(request):
-    if request.user.is_authenticated():
         if(request.method == 'GET'):
             return render(request, 'add_post_form.html')
         else:
@@ -42,5 +45,4 @@ def add_post(request):
                     code=request.POST['code'],
                     description=request.POST['description']
             )
-
-    return redirect('/', permanent=False)
+            return redirect('/', permanent=False)

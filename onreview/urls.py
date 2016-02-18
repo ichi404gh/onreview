@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from onreview_app import views
+from onreview_app.views import views, auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^post/(\d)+', views.post),
     url(r'^comment/(\d)+', views.comment),
     url(r'^add/$', views.add_post),
+    url(r'^login/$', auth_views.login_request),
+    url(r'^logout/$', auth_views.logout_request),
 ]
