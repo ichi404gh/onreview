@@ -20,9 +20,10 @@ from onreview_app.views import views, auth_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.list),
-    url(r'^post/(\d)+', views.post),
-    url(r'^comment/(\d)+', views.comment),
+    url(r'^post/([\d]+)', views.post),
+    url(r'^comment/([\d]+)', views.comment),
     url(r'^add[/]?$', views.add_post),
+    url(r'^add_comment/([\d]+)?$', views.add_comment),
     url(r'^login$', auth_views.login_request),
     url(r'^logout$', auth_views.logout_request),
     url(r'^register[/]?$', auth_views.register),

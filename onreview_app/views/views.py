@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from onreview_app.models import Post, Comment
+from onreview_app.forms import *
 
 from django.shortcuts import render, render_to_response
 import math
@@ -46,3 +47,26 @@ def add_post(request):
                     description=request.POST['description']
             )
             return redirect('/', permanent=False)
+
+@login_required
+def add_comment(request, post_id):
+
+    if(request.method == 'GET'):
+        post = Post.objects.get(pk=post_id)
+
+        form = CommentForm({'post_id':post_id, 'code':post.code})
+        return render(request, 'add_comment_form.html', {'post': post, 'form':form})
+    else:
+        form = CommentForm(request.POST or None)
+        if(form.is_valid()):
+            print('valid')
+            Comment.objects.create(
+                    code=form.cleaned_data['code'],
+                    description=form.cleaned_data['description'],
+                    post=Post.objects.get(pk=form.cleaned_data['post_id']),
+                    author=request.user
+            )
+            return redirect('/post/{}'.format(form.cleaned_data['post_id']), permanent=False)
+
+        post = Post.objects.get(pk=form.cleaned_data['post_id'])
+        return render(request, 'add_comment_form.html', {'post': post, 'form':form})

@@ -2,6 +2,7 @@
 {%block body%}
     <p><!--
     --><pre>{{post.code}}</pre>
+    <a href="/add_comment/{{post.id}}">add comment</a>
 
     </p>
     <p>
@@ -9,7 +10,7 @@
     </p>
     <ul>
       {% for c in active_comments %}
-        <li><a href="/comment/{{c.id}}">-&gt;{{c.description}}</a></li>
+        <li><a href="/comment/{{c.id}}">-&gt;{{c.description}}</a> ({{c.score}})</li>
       {% endfor %}
     </ul>
 {% endblock %}
