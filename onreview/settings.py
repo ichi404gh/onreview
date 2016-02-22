@@ -81,8 +81,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-LOGIN_URL = "/login/"
-LOGOUT_URL = '/logout/'
+LOGIN_URL = "/login"
+LOGOUT_URL = '/logout'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

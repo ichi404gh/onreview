@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}On review{% endblock %}</title>
+  </head>
+  <body>
+    <div class="">
+      {% if request.user.is_authenticated %}
+        <span>logged in as {{request.user.username}} (<a href="/logout">logout</a>)</span>
+        <span><a href="/add/">+</a></span>
+      {% else %}
+      <span><a href="/login?next={{request.path}}">log in</a></span>
+      {% endif %}
+      <hr>
+    </div>
+    {% block body %}
+    {% endblock %}
+  </body>
+</html>

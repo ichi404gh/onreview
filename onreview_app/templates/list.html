@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Post list</title>
-  </head>
-  <body>
-    <div class="">
-      {% if request.user.is_authenticated %}
-        <span>logged in as {{request.user.username}}</span>
-        <span><a href="/add/">+</a></span>
-        <hr>
-      {% endif %}
-    </div>
+{% extends "base.html" %}
+{%block body%}
+  
     {% for p in posts %}
       <div class="post">
         <p>
@@ -20,5 +9,4 @@
           <pre>{{p.code}}</pre>
       </div>
     {% endfor %}
-  </body>
-</html>
+{% endblock %}

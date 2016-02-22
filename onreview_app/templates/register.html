@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{%block body%}
+  <form method="post" action="/register">
+    {% csrf_token %}
+    <table>
+      {{form}}
+    </table>
+    <input type="submit" value="register" />
+  </form>
+{% endblock %}
