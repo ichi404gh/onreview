@@ -7,13 +7,14 @@ from django.shortcuts import render, render_to_response
 import math
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from onreview.settings import LOGIN_URL, LOGOUT_URL
 
 def list(request):
     posts = Post.objects.all()
 
     context = {
-        'posts':posts.filter(active=True),
+        'posts':posts.filter(active=True).order_by('-pub_date'),
     }
     return render(request, 'list.html', context)
 
@@ -22,7 +23,9 @@ def post(request, id_parameter):
 
     context = {
         'post':post,
-        'active_comments':post.comments.filter(active=True),
+        'active_comments':post.comments.filter(active=True)\
+                    .annotate(score=Count('scored_by'))\
+                    .order_by('-score', 'pub_date'),
         'scored': request.user in post.scored_by.all()
     }
     return render(request, 'post.html', context)

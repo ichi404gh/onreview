@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {%block body%}
-  
+
     {% for p in posts %}
       <div class="post">
         <p>
-          <i><a href="/post/{{p.id}}">{{p.author.username}}</a></i>
+          <i><a href="/post/{{p.id}}">{{p.author.username}}</a> ({{p.score}})</i>
         </p>
           <pre>{{p.code}}</pre>
       </div>

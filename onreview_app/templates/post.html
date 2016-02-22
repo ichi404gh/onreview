@@ -5,12 +5,13 @@
     </span>
     <p><!--
     --><pre>{{post.code}}</pre>
-    <a href="/add_comment/{{post.id}}">add comment</a>
 
     </p>
     <p>
       <i>{{post.description}}</i>
     </p>
+    <a href="/add_comment/{{post.id}}">add comment</a>
+    
     <ul>
       {% for c in active_comments %}
         <li><a href="/comment/{{c.id}}">-&gt;{{c.description}}</a> ({{c.score}})</li>
