@@ -22,7 +22,8 @@ def post(request, id_parameter):
 
     context = {
         'post':post,
-        'active_comments':post.comments.filter(active=True)
+        'active_comments':post.comments.filter(active=True),
+        'scored': request.user in post.scored_by.all()
     }
     return render(request, 'post.html', context)
 
@@ -31,8 +32,28 @@ def comment(request, id_parameter):
 
     context = {
         'comment':comment,
+        'scored': request.user in comment.scored_by.all()
     }
     return render(request, 'comment.html', context)
+
+def vote(obj, user):
+    if(user in obj.scored_by.all()):
+        obj.scored_by.remove(user)
+    else:
+        obj.scored_by.add(user)
+
+@login_required
+def vote_post(request, id_parameter):
+    obj = Post.objects.get(pk=id_parameter)
+    vote(obj, request.user)
+    return redirect('/post/{}'.format(id_parameter), permanent=False)
+
+@login_required
+def vote_comment(request, id_parameter):
+    obj = Comment.objects.get(pk=id_parameter)
+    vote(obj, request.user)
+    return redirect('/comment/{}'.format(id_parameter), permanent=False)
+
 
 @login_required
 def add_post(request):

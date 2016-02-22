@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {%block body%}
+<p>
+  <a href="/post/{{comment.post.id}}">Back to post</a>
+</p>
+<span>rating: {{ comment.score }}
+    <a href="/vote/comment/{{comment.id}}">{% if scored %}-{% else %}+{% endif %}</a>
+</span>
     <p>
       <pre class="code"><!--
 -->{% for c in comment.get_diff.0 %}<!--

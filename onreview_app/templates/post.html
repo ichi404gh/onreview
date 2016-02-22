@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {%block body%}
+    <span>rating: {{ post.score }}
+        <a href="/vote/post/{{post.id}}">{% if scored %}-{% else %}+{% endif %}</a>
+    </span>
     <p><!--
     --><pre>{{post.code}}</pre>
     <a href="/add_comment/{{post.id}}">add comment</a>

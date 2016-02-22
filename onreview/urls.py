@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^login$', auth_views.login_request),
     url(r'^logout$', auth_views.logout_request),
     url(r'^register[/]?$', auth_views.register),
+    url(r'^vote/post/([\d]+)', views.vote_post),
+    url(r'^vote/comment/([\d]+)', views.vote_comment),
 ]
