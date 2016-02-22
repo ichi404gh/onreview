@@ -8,6 +8,6 @@ class CommentInline(admin.TabularInline):
 
 class PostAdmin(admin.ModelAdmin):
     readonly_fields = ('pub_date',)
-    inlines=[CommentInline]
+    inlines=(CommentInline,)
 
 admin.site.register(Post, PostAdmin)

@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>login</title>
-  </head>
-  <body>
+{% extends "base.html" %}
+{%block body%}
     <form method="post" action="{% url 'onreview_app.views.auth_views.login_request' %}">
       {% csrf_token %}
       <table>
@@ -14,5 +9,4 @@
       <input type="hidden" name="next" value="{{ next }}" />
     </form>
     <a href="/register/">regester</a>
-  </body>
-</html>
+{% endblock %}

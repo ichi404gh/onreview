@@ -18,8 +18,7 @@ def list(request):
     return render(request, 'list.html', context)
 
 def post(request, id_parameter):
-    id = int(id_parameter)
-    post = Post.objects.get(pk=id)
+    post = Post.objects.get(pk=id_parameter)
 
     context = {
         'post':post,
@@ -28,8 +27,7 @@ def post(request, id_parameter):
     return render(request, 'post.html', context)
 
 def comment(request, id_parameter):
-    id = int(id_parameter)
-    comment = Comment.objects.get(pk=id)
+    comment = Comment.objects.get(pk=id_parameter)
 
     context = {
         'comment':comment,
@@ -50,16 +48,13 @@ def add_post(request):
 
 @login_required
 def add_comment(request, post_id):
-
     if(request.method == 'GET'):
         post = Post.objects.get(pk=post_id)
-
-        form = CommentForm({'post_id':post_id, 'code':post.code})
+        form = CommentForm({'post_id':post.id, 'code':post.code})
         return render(request, 'add_comment_form.html', {'post': post, 'form':form})
     else:
         form = CommentForm(request.POST or None)
         if(form.is_valid()):
-            print('valid')
             Comment.objects.create(
                     code=form.cleaned_data['code'],
                     description=form.cleaned_data['description'],

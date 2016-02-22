@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Add post</title>
-  </head>
-  <body>
+{% extends "base.html" %}
+{%block body%}
     <form class="" action="/add/" method="post">
       {% csrf_token %}
       <label for="code">Код</label> <textarea name="code" rows="8" cols="40"></textarea>
@@ -13,5 +8,4 @@
 
       <input type="submit" name="name">
     </form>
-  </body>
-</html>
+{% endblock %}
