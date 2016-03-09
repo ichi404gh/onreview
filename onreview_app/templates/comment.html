@@ -6,27 +6,37 @@
 <span>rating: {{ comment.score }}
     <a href="/vote/comment/{{comment.id}}">{% if scored %}-{% else %}+{% endif %}</a>
 </span>
-    <p>
-      <pre class="code"><!--
--->{% for c in comment.get_diff.0 %}<!--
-        -->{% if c.0 == 'mod' %}<!--
-        --><span style="background-color: red;">{{c.1|safe}}</span><!--
-        -->{% else %}<!--
-        -->{{c.1|safe}}<!--
-        -->{% endif %}<!--
-      -->{% endfor %}
-      </pre>
-    </p>
 
-    <p>
-      <pre class="code"><!--
--->{% for c in comment.get_diff.1 %}<!--
-        -->{% if c.0 == 'mod' %}<!--
-        --><span style="background-color: green;">{{c.1|safe}}</span><!--
-        -->{% else %}<!--
-        -->{{c.1|safe}}<!--
-        -->{% endif %}<!--
-      -->{% endfor %}
-      </pre>
-    </p>
+  <table class=table>
+    <tr>
+      <td>
+        <p>
+          <pre class="code"><!--
+    -->{% for c in comment.get_diff.0 %}<!--
+            -->{% if c.0 == 'mod' %}<!--
+            --><span style="background-color: #f88;">{{c.1|safe}}</span><!--
+            -->{% else %}<!--
+            -->{{c.1|safe}}<!--
+            -->{% endif %}<!--
+          -->{% endfor %}
+          </pre>
+        </p>
+      </td>
+      <td>
+        <p>
+          <pre class="code"><!--
+    -->{% for c in comment.get_diff.1 %}<!--
+            -->{% if c.0 == 'mod' %}<!--
+            --><span style="background-color: #8f8;">{{c.1|safe}}</span><!--
+            -->{% else %}<!--
+            -->{{c.1|safe}}<!--
+            -->{% endif %}<!--
+          -->{% endfor %}
+          </pre>
+        </p>
+      </td>
+    </tr>
+  </table>
+
+
 {% endblock %}
