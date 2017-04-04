@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from onreview_app.forms import *
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 def login_request(request):
     if(request.method == 'GET'):
         context={
@@ -17,7 +17,7 @@ def login_request(request):
         if(form.is_valid()):
             login(request, form.get_user())
             return redirect(request.POST['next'] or '/', permanent=False)
-        return redirect(LOGIN_URL, permanent=False)
+        return redirect(url(reverse("login"), permanent=False)
 
 def logout_request(request):
     logout(request)
