@@ -1,10 +1,7 @@
 {% extends "base.html" %}
 {%block body%}
-
     {% for p in posts %}
       <div class="panel panel-default">
-        <!-- <div class="panel-heading"> -->
-        <!-- </div> -->
         <div class="panel-body">
           <a href="/post/{{p.id}}">{{p.author.username}}</a> ({{p.score}})
             <pre>{{p.code}}</pre>

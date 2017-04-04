@@ -1,50 +1,54 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}On review{% endblock %}</title>
-    <!-- <link rel="stylesheet" href="{% static 'onreview_app/css/style.css' %}" media="screen" title="no title" charset="utf-8"> -->
-    <link rel="stylesheet" href="{% static 'onreview_app/css/bootstrap.min.css' %}" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="{% static 'onreview_app/css/bootstrap-ss.min.css' %}" media="screen" title="no title" charset="utf-8">
-    <script src="{%static 'onreview_app/js/bootstrap.min.js'%}" charset="utf-8"></script>
-  </head>
-  <body>
-    <div class="container">
+
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}On review{% endblock %}</title>
+  <!-- <link rel="stylesheet" href="{% static 'onreview_app/css/style.css' %}" media="screen" title="no title" charset="utf-8"> -->
+  <link rel="stylesheet" href="{% static 'onreview_app/css/bootstrap.min.css' %}" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="{% static 'onreview_app/css/bootstrap-ss.min.css' %}" media="screen" title="no title" charset="utf-8">
+  <script src="{%static 'onreview_app/js/bootstrap.min.js'%}" charset="utf-8"></script>
+</head>
+
+<body>
+  <div class="container">
 
 
-      <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Onreview</a>
-    </div>
+          <a class="navbar-brand" href="/">Onreview</a>
+        </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      {% if request.user.is_authenticated %}
-      <ul class="nav navbar-nav">
-        <li><a href="/add/">add post</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/logout">{{request.user.username}} (logout)</a></li>
-      </ul>
-      {% else %}
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/login?next={{request.path}}">log in</a></li>
-      </ul>
-      {% endif %}
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          {% if request.user.is_authenticated %}
+          <ul class="nav navbar-nav">
+            <li><a href="/add/">add post</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout">{{request.user.username}} (logout)</a></li>
+          </ul>
+          {% else %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/login?next={{request.path}}">log in</a></li>
+          </ul>
+          {% endif %}
 
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-      {% block body %}
-      {% endblock %}
-    </div>
-  </body>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    {% block body %} {% endblock %}
+  </div>
+</body>
+
 </html>

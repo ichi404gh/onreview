@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {%block body%}
-    <form method="post" action="{% url 'onreview_app.views.auth_views.login_request' %}">
+    <form method="post" action="{% url 'login' %}">
       {% csrf_token %}
       <table>
         {{form}}
