@@ -17,7 +17,7 @@ def login_request(request):
         if(form.is_valid()):
             login(request, form.get_user())
             return redirect(request.POST['next'] or '/', permanent=False)
-        return redirect(url(reverse("login"), permanent=False))
+        return redirect(reverse("login"), permanent=False)
 
 def logout_request(request):
     logout(request)
