@@ -24,9 +24,9 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 SECRET_KEY = '1-!9lj(vgd4odi1y!zg+^0=veq0jjnoy)!^v+m4srzt4^_wpaf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("IS_PROD", "FALSE") != "TRUE"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
