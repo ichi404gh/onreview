@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +22,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1-!9lj(vgd4odi1y!zg+^0=veq0jjnoy)!^v+m4srzt4^_wpaf'
+SECRET_KEY = os.environ.get("SECRET_KEY", '1-!9lj(vgd4odi1y!zg+^0=veq0jjnoy)!^v+m4srzt4^_wpaf')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("IS_PROD", "FALSE") != "TRUE"
@@ -76,12 +77,16 @@ WSGI_APPLICATION = 'onreview.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
+if os.environ.get('IS_HEROKU','FALSE') == 'TRUE':
+    DATABASES['default'] =  dj_database_url.config()
+else:
+     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+
 LOGIN_URL = "/login"
 LOGOUT_URL = '/logout'
 
